@@ -5,7 +5,7 @@
       <i class="fa fa-microphone fa-stack-2x glyph fill"></i>
     </span></small>
     {{story.title}}
-    <small>Focused {{focusedFragment}} Recording "{{recording}}"({{recordingFragment}})</small>
+    
   </h1>
 </div> <!-- end of header -->
 
@@ -21,10 +21,13 @@
 </button>
 
 
-<!-- {{>fragment}} -->
-<div class="panel panel-default {{#if isFocused(fragNum)}}focused{{/if}}"
+{{#partial fragment}}
+<div class="panel panel-default {{#if isFocused(fragNum)}}focused{{/if}} [[fragNum]]"
   on-mouseenter="{{^recording}}hoverPanel{{/recording}}"
   on-mouseleave="{{^recording}}unhoverPanel{{/recording}}"
+  data-boss="[[fragNum]]"
+  data-embed="{{ isFocused([[fragNum]]) }}"
+  data-bossy=" [[fragNum]] "
   data-fragment="{{fragNum}}">
   <div class="panel-body">
     <div class="row">
@@ -34,7 +37,7 @@
           <button type="button" 
             class="btn record-btn {{ isRecording(fragNum) ? 'btn-danger' : 'btn-primary'}}" 
             on-click="toggleRecord"
-            data-fragment="{{fragNum}}" 
+            data-fragment="{{fragNum}}"
             disabled="{{ recording && !isRecording(fragNum) }}">
             {{#if isRecording(fragNum)}}
               <i class="fa fa-stop"></i> Stop
@@ -70,4 +73,4 @@
     </div>
   </div>
 </div>
-<!-- {{/fragment}} -->
+{{/partial}}
